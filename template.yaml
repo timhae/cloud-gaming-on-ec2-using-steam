@@ -572,7 +572,7 @@ Outputs:
 
   RDPconnect:
     Description: RDP (Remote Desktop Protocol) access via Fleet Manager
-    Value: !Sub "https://${AWS::Region}.console.aws.amazon.com/systems-manager/managed-instances/rdp-connect?region=${AWS::Region}&instances=${ec2Instance}"
+    Value: !Sub "https://${AWS::Region}.console.aws.amazon.com/systems-manager/fleet-manager/remote-desktop?nodeIds=${ec2Instance}&region=${AWS::Region}&authType=USER_CREDENTIALS"
 
   EC2console:
     Description: EC2 console
