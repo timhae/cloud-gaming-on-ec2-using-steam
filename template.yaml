@@ -499,7 +499,7 @@ Resources:
                 tscon %sessionname% /dest:console
         config2:
           commands:
-            0-setup:
+            01-setup:
               command: powershell.exe -ExecutionPolicy Unrestricted C:\windows\temp\setup.ps1
               ignoreErrors: true
               waitAfterCompletion: '0'
@@ -567,7 +567,12 @@ Resources:
 
 Outputs:
   SSMsessionManager:
-    Description: SSM Session Manager ("net user administrator <MyStr@ngAdminPassw0rd>" to change administrator password)
+    Description: |
+      SSM Session Manager to update and reset expiry of the administrator password
+      $User = [adsi]"WinNT://localhost/Administrator,user"
+      $User.SetPassword("YourNewSecurePassword123!")
+      $User.Put("PasswordExpired", 0)
+      $User.SetInfo()
     Value: !Sub "https://${AWS::Region}.console.aws.amazon.com/systems-manager/session-manager/${ec2Instance}"
 
   RDPconnect:
